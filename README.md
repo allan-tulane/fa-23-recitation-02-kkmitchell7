@@ -1,6 +1,6 @@
 # CMPS 2200  Recitation 02
 
-**Name (Team Member 1):**_________________________  
+**Name (Team Member 1):** Kailen Mitchell  
 **Name (Team Member 2):**_________________________
 
 In this recitation, we will investigate recurrences. 
@@ -40,12 +40,116 @@ where $W(1) = 1$.
 
 - [ ] 4. (2 point) Now, derive the asymptotic behavior of $W(n)$ using $f(n) = 1$, $f(n) = \log n$ and $f(n) = n$. Then, generate actual values for $W(n)$ for your code and confirm that the trends match your derivations.
 
-**TODO: your answer goes here**
+I chose a = 2 & b = 2
+
+For my derivations I got:
+f(n) = 1 : O(n) = n
+
+f(n) = log(n) : O(n) = log(n)
+
+f(n) = n : O(n) = nlog(n)
+
+Data:
+f(n) = 1 & f(n) == log(n)
+|     n | f(n)=1 | f(n)=log(n) |
+|-------|-------|-----------|
+|    10 |    15 |    16.294 |
+|    20 |    31 |    35.584 |
+|    50 |    63 |    84.201 |
+|   100 |   127 |   173.008 |
+|  1000 |  1023 |  1471.608 |
+|  5000 |  8191 |  9919.326 |
+| 10000 | 16383 | 19847.862 |
+
+f(n) = log(n) & f(n) == n
+
+|     n | f(n)=log(n) | f(n)=n |
+|-------|-----------|--------|
+|    10 |    16.294 |     36 |
+|    20 |    35.584 |     92 |
+|    50 |    84.201 |    276 |
+|   100 |   173.008 |    652 |
+|  1000 |  1471.608 |   9120 |
+|  5000 |  9919.326 |  61728 |
+| 10000 | 19847.862 | 133456 |
 
 - [ ] 5. (4 points) Now that you have a nice way to empirically generate valuess of $W(n)$, we can look at the relationship between $a$, $b$, and $f(n)$. Suppose that $f(n) = n^c$. What is the asypmptotic behavior of $W(n)$ if $c < \log_b a$? What about $c > \log_b a$? And if they are equal? Modify `compare_work` to compare empirical values for different work functions (at several different values of $n$) to justify your answer. 
 
-**TODO: your answer goes here**
+c = logb(a) : O((n^logb(a))*log(n))
+
+c < logb(a) : O(n^logb(a))
+
+c > logb(a) : O(n^c)
+
+Data:
+with a,b = 2, logb(a)=1
+
+c = 0.5, c <  logb(a)
+|     n |       W_1 |
+|-------|-----------|
+|    10 |    21.291 |
+|    20 |    47.055 |
+|    50 |   110.236 |
+|   100 |   230.472 |
+|  1000 |  2075.117 |
+|  5000 | 14251.208 |
+| 10000 | 28602.416 |
+
+c = 1, c = logb(a)
+|     n | f(n)=n |
+|-------|--------|
+|    10 |     36 |
+|    20 |     92 |
+|    50 |    276 |
+|   100 |    652 | 
+|  1000 |   9120 | 
+|  5000 |  61728 |
+| 10000 | 133456 |
+
+
+c = 2, c > logb(a)
+|     n |f(n)=n*n|
+|-------|--------|
+|    10 |    174 |
+|    20 |    748 |
+|    50 |   4790 |
+|   100 |  19580 |
+|  1000 | 1990744|
+|  5000 |49957880|
+| 10000 |199915760|
 
 - [ ] 6. (3 points) $W(n)$ is meant to represent the running time of some recursive algorithm. Suppose we always had $a$ processors available to us and we wanted to compute the span of the same algorithm. Implement the function `span_calc` to compute the empirical span, where the work of the algorithm is given by $W(n)$. Implement `test_compare_span` to create a new comparison function for comparing span functions. Derive the asymptotic expressions for the span of the recurrences you used in problem 4 above. Confirm that everything matches up as it should. 
 
-**TODO: your answer goes here**
+F(n) = 1 : S(n) = n
+|     n |   f(n)=1 |
+|-------|-------|
+|    10 |    15 |
+|    20 |    31 |
+|    50 |    63 |
+|   100 |   127 |
+|  1000 |  1023 | 
+|  5000 |  8191 | 
+| 10000 | 16383 | 
+
+F(n) = n : S(n) = n
+|     n |   f(n)=n |
+|-------|-------|
+|    10 |  36   |
+|    20 |   92  |
+|    50 |  276  |
+|   100 | 652   |
+|  1000 | 9120  |
+|  5000 | 61728 |
+| 10000 | 133456|
+
+F(n) = log(n) : S(n) = log(n)
+
+|     n | f(n)=logn |
+|-------|-----------|
+|    10 |    16.294 |
+|    20 |    35.584 |
+|    50 |    84.201 |
+|   100 |   173.008 |
+|  1000 |  1471.608 |
+|  5000 |  9919.326 |
+| 10000 | 19847.862 |
